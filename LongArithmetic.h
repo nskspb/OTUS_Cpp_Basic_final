@@ -127,9 +127,9 @@ LongNum LongNum::operator+(const LongNum &num)
     LongNum second = num;
     first.sign = true;
     second.sign = true;
-    if (!sign)
+    if (!sign) // Знак первого выражения отрицательный
     {
-        if (!num.sign)
+        if (!num.sign) // Знак второго выражения отрицательный
         {
             LongNum res = first + second;
             res.sign = false;
@@ -283,11 +283,16 @@ LongNum LongNum::operator/(const LongNum &num) // Предположительн
     LongNum second = num;
     first.sign = true;
     second.sign = true;
-    LongNum res;
-    int count = 0;
+    LongNum res(0);
+    long s = first.size() - second.size() + 1;
+    if (second == res)
+    {
+        std::cerr << "ERROR: division by zero!" << std::endl;
+    }
     if (first == second)
     {
         res = 1;
+        res.sign = !(sign ^ num.sign);
         return res;
     }
     else if (first < second)
@@ -295,30 +300,30 @@ LongNum LongNum::operator/(const LongNum &num) // Предположительн
         res = 0;
         return res;
     }
-    else
+
+    std::vector<int> w(s, 0);
+
+    while (first > second)
     {
-        first -= second;
-        count++;
+        second.number.insert(second.number.begin(), 0);
     }
 
-    while (first >= second)
+    for (size_t i = 0; i < s; ++i) // есть недочет в определении размера массива для результата
     {
-        if (first == second)
-        {
-            res = ++count;
-            return res;
-        }
-        else if (first < second)
-        {
-            res = count;
-            return res;
-        }
-        else
+        /*if ((i == s - 1) && (first < second))
+         {
+             break;
+         }*/
+        second.number.erase(second.number.begin());
+
+        while (first >= second)
         {
             first -= second;
-            count++;
+            w[s - i - 1]++;
         }
     }
+    res = w;
+    res.sign = !(sign ^ num.sign);
     return res;
 }
 

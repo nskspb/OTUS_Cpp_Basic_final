@@ -7,17 +7,14 @@ int main()
     long long int b = 919999999998888188;
     // std::cout << a + b << std::endl;
 
-    std::string k("555555");
-    std::string r("44444");
-    /*for (int i=0; i < k.number.size(); ++i)
-    {
-        std:: cout << k.number[i] << " ";
-    }*/
+    std::string k("73244432432");
+    std::string r("1");
+
     LongNum k1(k);
     LongNum r1(r);
+    std::cout << k1 / r1 << std::endl;
     std::cout << k1 - r1 << std::endl;
-    std::cout << k1 + r1 << std::endl;
-    std::cout << -k1 - -r1 << std::endl;
+    std::cout << k1 * r1 << std::endl;
 
     return 0;
 }
