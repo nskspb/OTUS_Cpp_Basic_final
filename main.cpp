@@ -7,8 +7,8 @@ int main()
     long long int b = 919999999998888188;
     // std::cout << a + b << std::endl;
 
-    std::string k("73244432432");
-    std::string r("1");
+    std::string k("121");
+    std::string r("12");
 
     LongNum k1(k);
     LongNum r1(r);

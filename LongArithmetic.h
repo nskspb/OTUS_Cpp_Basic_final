@@ -277,13 +277,14 @@ LongNum LongNum::operator*(const LongNum &num)
     return res;
 }
 
-LongNum LongNum::operator/(const LongNum &num) // Предположительно, не закончен
+LongNum LongNum::operator/(const LongNum &num)
 {
     LongNum first = *this;
     LongNum second = num;
     first.sign = true;
     second.sign = true;
     LongNum res(0);
+    long k = second.size();
     long s = first.size() - second.size() + 1;
     if (second == res)
     {
@@ -303,25 +304,29 @@ LongNum LongNum::operator/(const LongNum &num) // Предположительн
 
     std::vector<int> w(s, 0);
 
-    while (first > second)
+    while (second.size() < first.size())
     {
         second.number.insert(second.number.begin(), 0);
     }
 
-    for (size_t i = 0; i < s; ++i) // есть недочет в определении размера массива для результата
+    while (true)
     {
-        /*if ((i == s - 1) && (first < second))
-         {
-             break;
-         }*/
-        second.number.erase(second.number.begin());
+        if (second.size() < k)
+        {
+            break;
+        }
 
         while (first >= second)
         {
             first -= second;
-            w[s - i - 1]++;
+            w[s - 1]++;
         }
+        s--;
+        second.number.erase(second.number.begin());
     }
+
+    while (*w.rbegin() == 0)
+        w.pop_back();
     res = w;
     res.sign = !(sign ^ num.sign);
     return res;
