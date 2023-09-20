@@ -8,7 +8,7 @@ int main()
     // std::cout << a + b << std::endl;
 
     std::string k("83528");
-    std::string r("1839");
+    std::string r("0");
 
     LongNum k1(k);
     LongNum r1(r);

@@ -235,6 +235,9 @@ LongNum LongNum::operator*(const LongNum &num)
     LongNum second = num;
     first.sign = true;
     second.sign = true;
+    LongNum res(0);
+    if ((first == res) || (second == res))
+        return LongNum(0);
 
     if (first > second)
     {
@@ -264,7 +267,7 @@ LongNum LongNum::operator*(const LongNum &num)
         }
         w[n + i] = c;
     }
-    LongNum res(w);
+    res = w;
     delete_lead_zeros(res);
     res.sign = !(sign ^ num.sign);
     return res;
@@ -279,10 +282,18 @@ LongNum LongNum::operator/(const LongNum &num)
     LongNum res(0);
     long k = second.size();
     long s = first.size() - second.size() + 1;
-    if (second == res)
+    try
     {
-        std::cerr << "ERROR: division by zero!" << std::endl;
+        if (second == res)
+        {
+            throw std::runtime_error("ERROR: division by zero!");
+        }
     }
+    catch (const std::runtime_error &e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+
     if (first == second)
     {
         res = 1;
