@@ -33,6 +33,8 @@ public:
     LongNum operator-();
     LongNum operator+=(const LongNum &num);
     LongNum operator-=(const LongNum &num);
+    LongNum operator*=(const LongNum &num);
+    LongNum operator/=(const LongNum &num);
 
     bool operator==(LongNum &second);
     bool operator>(LongNum &second);
@@ -348,6 +350,18 @@ LongNum LongNum::operator+=(const LongNum &num)
 LongNum LongNum::operator-=(const LongNum &num)
 {
     *this = *this - num;
+    return *this;
+}
+
+LongNum LongNum::operator*=(const LongNum &num)
+{
+    *this = *this * num;
+    return *this;
+}
+
+LongNum LongNum::operator/=(const LongNum &num)
+{
+    *this = *this / num;
     return *this;
 }
 
