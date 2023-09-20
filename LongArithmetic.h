@@ -99,7 +99,7 @@ LongNum &LongNum::operator=(const LongNum &other)
     return *this;
 }
 
-LongNum &LongNum::operator=(int &other) // Желательно переделать
+LongNum &LongNum::operator=(int &other)
 {
     sign = other >= 0;
     LongNum tmp{other};
