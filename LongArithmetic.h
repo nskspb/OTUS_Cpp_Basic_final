@@ -19,7 +19,6 @@ public:
 
     size_t size() const;
 
-    void swap(const LongNum &first, const LongNum &second);
     LongNum &operator=(const LongNum &other);
     LongNum &operator=(int &other);
 
@@ -41,6 +40,8 @@ public:
     bool operator>=(LongNum &second);
     bool operator<(LongNum &second);
     bool operator<=(LongNum &second);
+
+    LongNum delete_lead_zeros(LongNum &num);
 };
 
 LongNum::LongNum()
@@ -220,16 +221,7 @@ LongNum LongNum::operator-(const LongNum &num)
                 first[i] = t;
             }
         }
-        /*  if (c==1)
-         {
-             if ((first.size()-s)>=1)
-             {
-                 first.number[s]--;
-             }
-             else first.number.pop_back();
-         }*/
-        while (*first.number.rbegin() == 0)
-            first.number.pop_back();
+        delete_lead_zeros(first);
         return first;
     }
     LongNum res = second - first;
@@ -272,9 +264,8 @@ LongNum LongNum::operator*(const LongNum &num)
         }
         w[n + i] = c;
     }
-    while (*w.rbegin() == 0)
-        w.pop_back();
     LongNum res(w);
+    delete_lead_zeros(res);
     res.sign = !(sign ^ num.sign);
     return res;
 }
@@ -327,9 +318,8 @@ LongNum LongNum::operator/(const LongNum &num)
         second.number.erase(second.number.begin());
     }
 
-    while (*w.rbegin() == 0)
-        w.pop_back();
     res = w;
+    delete_lead_zeros(res);
     res.sign = !(sign ^ num.sign);
     return res;
 }
@@ -429,4 +419,13 @@ bool LongNum::operator<(LongNum &second)
 bool LongNum::operator<=(LongNum &second)
 {
     return !(*this > second);
+}
+
+LongNum LongNum::delete_lead_zeros(LongNum &num)
+{
+    while (*num.number.rbegin() == 0)
+    {
+        num.number.pop_back();
+    }
+    return num;
 }
