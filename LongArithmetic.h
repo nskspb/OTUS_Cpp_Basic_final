@@ -150,6 +150,8 @@ LongNum LongNum::operator+(const LongNum &num)
         return res;
     }
     int c = 0, t = 0;
+    long k = first.size() - second.size();
+    long z = second.size();
     if (first >= second)
     {
         for (size_t i = 0; i <= second.size() - 1; i++)
@@ -158,14 +160,28 @@ LongNum LongNum::operator+(const LongNum &num)
             c = t >= 10;
             first[i] = t % 10;
         }
-        if (c == 1)
+        while (c == 1)
         {
-            if ((first.size() - second.size()) >= 1)
+            if (k >= 1)
             {
-                first.number[second.size()]++;
+                if (first.number[z] == 9)
+                {
+                    first.number[z] = 0;
+                    z++;
+                    k--;
+                    c = 1;
+                }
+                else
+                {
+                    first.number[z]++;
+                    c = 0;
+                }
             }
             else
+            {
                 first.number.push_back(1);
+                c = 0;
+            }
         }
         return first;
     }
