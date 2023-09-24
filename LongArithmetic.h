@@ -32,6 +32,7 @@ public:
     LongNum KaratsubaAlg(const LongNum &fitstNum, const LongNum &secondNum);
     LongNum operator/(const LongNum &num);
     LongNum operator-();
+    LongNum operator%(const LongNum &num);
     LongNum operator+=(const LongNum &num);
     LongNum operator-=(const LongNum &num);
     LongNum operator*=(const LongNum &num);
@@ -151,8 +152,6 @@ LongNum LongNum::operator+(const LongNum &num)
 {
     LongNum first = *this;
     LongNum second = num;
-
-    std::cout << pow(first, second) << std::endl;
     first.sign = true;
     second.sign = true;
     if (!sign) // Знак первого выражения отрицательный
@@ -277,7 +276,7 @@ LongNum LongNum::operator*(const LongNum &num)
     first.sign = true;
     second.sign = true;
     LongNum res(0);
-    if ((first == res) || (second == res))
+    if ((first.isZero()) || (second.isZero()))
         return LongNum(0);
 
     if (first > second)
@@ -316,7 +315,19 @@ LongNum LongNum::operator*(const LongNum &num)
 
 LongNum LongNum::KaratsubaAlg(const LongNum &firstNum, const LongNum &secondNum)
 {
+    LongNum first = firstNum;
+    LongNum second = secondNum;
     LongNum result(0);
+
+    auto base = std::max(first.size(), second.size());
+    auto halfbase = base / 2;
+    LongNum A = first / pow(LongNum(10), halfbase);
+    LongNum B = first % pow(LongNum(10), halfbase);
+    LongNum C = second / pow(LongNum(10), halfbase);
+    LongNum D = second % pow(LongNum(10), halfbase);
+
+    LongNum AC = KaratsubaAlg(A, C);
+    LongNum BD = KaratsubaAlg(B, D);
 
     return result;
 }
@@ -332,7 +343,7 @@ LongNum LongNum::operator/(const LongNum &num)
     long s = first.size() - second.size() + 1;
     try
     {
-        if (second == res)
+        if (second.isZero())
         {
             throw std::runtime_error("ERROR: division by zero!");
         }
@@ -388,6 +399,12 @@ LongNum LongNum::operator-()
     LongNum res = *this;
     res.sign = !res.sign;
     return res;
+}
+
+LongNum LongNum::operator%(const LongNum &num)
+{
+    LongNum buf = *this / num;
+    return *this - buf * num;
 }
 
 LongNum LongNum::operator+=(const LongNum &num)
