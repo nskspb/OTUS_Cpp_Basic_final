@@ -19,6 +19,7 @@ public:
     static void test_mul();                                             // Test for *, *=
     static void test_div();                                             // Test for /, /=
     static void test_constructor();                                     // Test for constructor
+    static void test_pow();                                             // Test for pow(x;y)
 };
 
 int Test::totalTestNum = 0;  // Total number of tests
@@ -50,6 +51,7 @@ void Test::runAllTests()
     test_mul();
     test_div();
     test_constructor();
+    test_pow();
 }
 
 // Print out test report
@@ -283,6 +285,15 @@ void Test ::test_constructor()
     verify("constructor #1", LongNum(a1), LongNum(b1));
     verify("constructor #2", LongNum(a2), LongNum(b2));
     verify("constructor #3", LongNum(a3), LongNum(b3));
+}
+
+void Test ::test_pow()
+{
+    std::string a1("0");
+    std::string b1("1");
+    std::string result1("0");
+
+    // verify("pow #1", pof(LongNum(a1), LongNum(b1)), LongNum(result1));
 }
 
 int main(int argc, char *argv[])

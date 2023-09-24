@@ -2,7 +2,6 @@
 
 #include <iostream>
 #include <vector>
-#include <algorithm>
 
 class LongNum
 {
@@ -18,6 +17,8 @@ public:
     ~LongNum();
 
     size_t size() const;
+    bool isOne() const;
+    bool isZero() const;
 
     LongNum &operator=(const LongNum &other);
     LongNum &operator=(int &other);
@@ -28,12 +29,14 @@ public:
     LongNum operator+(const LongNum &num);
     LongNum operator-(const LongNum &num);
     LongNum operator*(const LongNum &num);
+    LongNum KaratsubaAlg(const LongNum &fitstNum, const LongNum &secondNum);
     LongNum operator/(const LongNum &num);
     LongNum operator-();
     LongNum operator+=(const LongNum &num);
     LongNum operator-=(const LongNum &num);
     LongNum operator*=(const LongNum &num);
     LongNum operator/=(const LongNum &num);
+    LongNum pow(const LongNum &firstNum, const LongNum &secondNum);
 
     bool operator==(LongNum &second);
     bool operator>(LongNum &second);
@@ -95,6 +98,24 @@ size_t LongNum::size() const
     return number.size();
 }
 
+bool LongNum::isOne() const
+{
+    if ((number.size() == 1) and (number[0] == 1) and (sign == true))
+    {
+        return true;
+    }
+    return false;
+}
+
+bool LongNum::isZero() const
+{
+    if ((number.size() == 0) and (number[0] == 0))
+    {
+        return true;
+    }
+    return false;
+}
+
 LongNum &LongNum::operator=(const LongNum &other)
 {
     sign = other.sign;
@@ -130,6 +151,8 @@ LongNum LongNum::operator+(const LongNum &num)
 {
     LongNum first = *this;
     LongNum second = num;
+
+    std::cout << pow(first, second) << std::endl;
     first.sign = true;
     second.sign = true;
     if (!sign) // Знак первого выражения отрицательный
@@ -291,6 +314,13 @@ LongNum LongNum::operator*(const LongNum &num)
     return res;
 }
 
+LongNum LongNum::KaratsubaAlg(const LongNum &firstNum, const LongNum &secondNum)
+{
+    LongNum result(0);
+
+    return result;
+}
+
 LongNum LongNum::operator/(const LongNum &num)
 {
     LongNum first = *this;
@@ -382,6 +412,42 @@ LongNum LongNum::operator/=(const LongNum &num)
 {
     *this = *this / num;
     return *this;
+}
+
+LongNum LongNum::pow(const LongNum &firstNum, const LongNum &secondNum)
+{
+    LongNum res(0);
+
+    LongNum first = firstNum;
+    LongNum second = secondNum;
+
+    if (second.isZero())
+    {
+        return LongNum(1);
+    }
+
+    if (second.isOne())
+    {
+        return firstNum;
+    }
+
+    if (first.isZero())
+    {
+        return LongNum(0);
+    }
+
+    if (first.isOne())
+    {
+        return LongNum(1);
+    }
+
+    res = pow(first * first, second / 2);
+
+    if (second.number[0] % 2 == 1)
+    {
+        res *= first;
+    }
+    return res;
 }
 
 bool LongNum::operator==(LongNum &second)
