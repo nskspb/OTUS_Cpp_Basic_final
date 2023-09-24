@@ -8,12 +8,14 @@ int main()
     // std::cout << a + b << std::endl;
 
     std::string k("9999");
-    std::string r("0");
+    std::string r("12");
 
     LongNum k1(k);
     LongNum r1(r);
+    int g = -10000;
+    LongNum g1(g);
 
-    std::cout << k1 + r1 << std::endl;
+    std::cout << k1 + g1 << std::endl;
     std::cout << k1 - r1 << std::endl;
     std::cout << k1 * r1 << std::endl;
     std::cout << k1 / r1 << std::endl;

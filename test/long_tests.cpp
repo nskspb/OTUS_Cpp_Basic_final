@@ -18,6 +18,7 @@ public:
     static void test_sub();                                             // Test for -, -=
     static void test_mul();                                             // Test for *, *=
     static void test_div();                                             // Test for /, /=
+    static void test_constructor();                                     // Test for constructor
 };
 
 int Test::totalTestNum = 0;  // Total number of tests
@@ -48,6 +49,7 @@ void Test::runAllTests()
     test_sub();
     test_mul();
     test_div();
+    test_constructor();
 }
 
 // Print out test report
@@ -187,6 +189,14 @@ void Test::test_mul()
     std::string b8("1");
     std::string result8("0");
 
+    std::string a9("100000000000000");
+    std::string b9("1234567891234567");
+    std::string result9("123456789123456700000000000000");
+
+    std::string a10("100000000000000123");
+    std::string b10("1234567891234567");
+    std::string result10("123456789123456851851850621851741");
+
     verify("mul #1", LongNum(a1) * LongNum(b1), LongNum(result1));
     verify("mul #2", LongNum(a2) * LongNum(b2), LongNum(result2));
     verify("mul #3", LongNum(a3) * LongNum(b3), LongNum(result3));
@@ -195,6 +205,8 @@ void Test::test_mul()
     verify("mul #6", LongNum(a6) * LongNum(b6), LongNum(result6));
     verify("mul #7", LongNum(a7) * LongNum(b7), LongNum(result7));
     verify("mul #8", LongNum(a8) * LongNum(b8), LongNum(result8));
+    verify("mul #9", LongNum(a9) * LongNum(b9), LongNum(result9));
+    verify("mul #9", LongNum(a10) * LongNum(b10), LongNum(result10));
 }
 
 void Test::test_div()
@@ -254,6 +266,23 @@ void Test::test_div()
     verify("div #9", LongNum(a9) / LongNum(b9), LongNum(result9));
     verify("div #10", LongNum(a10) / LongNum(b10), LongNum(result10));
     verify("div #11", LongNum(a11) / LongNum(b11), LongNum(result11));
+}
+
+void Test ::test_constructor()
+{
+
+    std::string a1("90000009");
+    int b1 = 90000009;
+
+    std::string a2("-90000009");
+    int b2 = -90000009;
+
+    std::string a3("0");
+    int b3 = 0;
+
+    verify("constructor #1", LongNum(a1), LongNum(b1));
+    verify("constructor #2", LongNum(a2), LongNum(b2));
+    verify("constructor #3", LongNum(a3), LongNum(b3));
 }
 
 int main(int argc, char *argv[])

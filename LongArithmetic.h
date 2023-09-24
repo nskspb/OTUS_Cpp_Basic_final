@@ -76,6 +76,8 @@ LongNum::LongNum(int n)
     sign = n >= 0;
     if (n == 0)
         number.push_back(0);
+
+    n = abs(n);
     while (n > 0)
     {
         number.push_back(n % 10);
