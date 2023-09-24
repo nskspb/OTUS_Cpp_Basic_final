@@ -224,12 +224,24 @@ void Test::test_div()
     std::string result6("-99999999999999");
 
     std::string a7("100000000000000");
-    std::string b7("100000000000000");
-    std::string result7("1");
+    std::string b7("10000000000000");
+    std::string result7("10");
 
     std::string a8("15645646545646545646");
     std::string b8("8484165151514354548489489478974");
     std::string result8("0");
+
+    std::string a9("95645646545646545646");
+    std::string b9("84841651515143545484");
+    std::string result9("1");
+
+    std::string a10("90000000000000000000000000009");
+    std::string b10("9");
+    std::string result10("10000000000000000000000000001");
+
+    std::string a11("-90000000000000000000000000009");
+    std::string b11("10");
+    std::string result11("-9000000000000000000000000000");
 
     verify("div #1", LongNum(a1) / LongNum(b1), LongNum(result1));
     verify("div #2", LongNum(a2) / LongNum(b2), LongNum(result2));
@@ -239,6 +251,9 @@ void Test::test_div()
     verify("div #6", LongNum(a6) / LongNum(b6), LongNum(result6));
     verify("div #7", LongNum(a7) / LongNum(b7), LongNum(result7));
     verify("div #8", LongNum(a8) / LongNum(b8), LongNum(result8));
+    verify("div #9", LongNum(a9) / LongNum(b9), LongNum(result9));
+    verify("div #10", LongNum(a10) / LongNum(b10), LongNum(result10));
+    verify("div #11", LongNum(a11) / LongNum(b11), LongNum(result11));
 }
 
 int main(int argc, char *argv[])
