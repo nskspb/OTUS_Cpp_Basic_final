@@ -29,8 +29,8 @@ public:
     LongNum operator+(const LongNum &num);
     LongNum operator-(const LongNum &num);
     LongNum operator*(const LongNum &num);
-    LongNum mult(const LongNum &firstNum, const LongNum &num);
-    LongNum KaratsubaAlg(const LongNum &fitstNum, const LongNum &secondNum);
+    friend LongNum mult(const LongNum &firstNum, const LongNum &num);
+    friend LongNum KaratsubaAlg(const LongNum &firstNum, const LongNum &secondNum);
     LongNum operator/(const LongNum &num);
     LongNum operator-();
     LongNum operator%(const LongNum &num);
@@ -38,7 +38,7 @@ public:
     LongNum operator-=(const LongNum &num);
     LongNum operator*=(const LongNum &num);
     LongNum operator/=(const LongNum &num);
-    LongNum pow(const LongNum &firstNum, const LongNum &secondNum);
+    friend LongNum pow(const LongNum &firstNum, const LongNum &secondNum);
 
     bool operator==(LongNum &second);
     bool operator>(LongNum &second);
@@ -46,7 +46,7 @@ public:
     bool operator<(LongNum &second);
     bool operator<=(LongNum &second);
 
-    LongNum delete_lead_zeros(LongNum &num);
+    friend LongNum delete_lead_zeros(LongNum &num);
 };
 
 LongNum::LongNum()
@@ -277,7 +277,7 @@ LongNum LongNum::operator*(const LongNum &num)
     return res;
 }
 
-LongNum LongNum::mult(const LongNum &firstNum, const LongNum &num)
+LongNum mult(const LongNum &firstNum, const LongNum &num)
 {
     LongNum first = firstNum;
     LongNum second = num;
@@ -317,11 +317,11 @@ LongNum LongNum::mult(const LongNum &firstNum, const LongNum &num)
     }
     res = w;
     delete_lead_zeros(res);
-    res.sign = !(sign ^ num.sign);
+    res.sign = !(firstNum.sign ^ num.sign);
     return res;
 }
 
-LongNum LongNum::KaratsubaAlg(const LongNum &firstNum, const LongNum &secondNum)
+LongNum KaratsubaAlg(const LongNum &firstNum, const LongNum &secondNum)
 {
     LongNum first = firstNum;
     LongNum second = secondNum;
@@ -367,6 +367,7 @@ LongNum LongNum::operator/(const LongNum &num)
     catch (const std::runtime_error &e)
     {
         std::cerr << e.what() << '\n';
+        return LongNum(0);
     }
 
     if (first == second)
@@ -447,12 +448,25 @@ LongNum LongNum::operator/=(const LongNum &num)
     return *this;
 }
 
-LongNum LongNum::pow(const LongNum &firstNum, const LongNum &secondNum)
+LongNum pow(const LongNum &firstNum, const LongNum &secondNum)
 {
     LongNum res(0);
 
     LongNum first = firstNum;
     LongNum second = secondNum;
+
+    try
+    {
+        if (!secondNum.sign)
+        {
+            throw std::runtime_error("Let the power will be positive!");
+        }
+    }
+    catch (const std::runtime_error &e)
+    {
+        std::cerr << e.what() << '\n';
+        return LongNum(0);
+    }
 
     if (second.isZero())
     {
@@ -549,7 +563,7 @@ bool LongNum::operator<=(LongNum &second)
     return !(*this > second);
 }
 
-LongNum LongNum::delete_lead_zeros(LongNum &num)
+LongNum delete_lead_zeros(LongNum &num)
 {
     if ((num.number[0] == 0) and (num.size() == 1))
     {
