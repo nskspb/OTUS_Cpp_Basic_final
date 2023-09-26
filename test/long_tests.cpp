@@ -1,5 +1,4 @@
 #include <iostream>
-#include <string>
 #include "../LongArithmetic.h"
 
 #include <gtest/gtest.h>
@@ -360,13 +359,4 @@ void Test::test_KaratsubaAlg()
     verify("KaratsubaAlg #3", KaratsubaAlg(LongNum(a3), LongNum(b3)), LongNum(result3));
     verify("KaratsubaAlg #4", KaratsubaAlg(LongNum(a4), LongNum(b4)), LongNum(result4));
     verify("KaratsubaAlg #5", KaratsubaAlg(LongNum(a5), LongNum(b5)), LongNum(result5));
-}
-
-int main(int argc, char *argv[])
-{
-
-    Test::runAllTests();
-    Test::printTestReport();
-
-    return 0;
 }
