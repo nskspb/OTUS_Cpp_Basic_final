@@ -13,7 +13,7 @@ public:
     LongNum();
     LongNum(std::vector<int> &vec, bool sig);
     LongNum(std::string &str);
-    LongNum(int n);
+    LongNum(long long n);
     ~LongNum();
 
     size_t size() const;
@@ -76,7 +76,7 @@ LongNum::LongNum(std::string &str)
     }
 }
 
-LongNum::LongNum(int n)
+LongNum::LongNum(long long n)
 {
     sign = n >= 0;
     if (n == 0)
