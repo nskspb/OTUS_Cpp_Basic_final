@@ -29,6 +29,7 @@ public:
     LongNum operator+(const LongNum &num);
     LongNum operator-(const LongNum &num);
     LongNum operator*(const LongNum &num);
+    LongNum mult(const LongNum &firstNum, const LongNum &num);
     LongNum KaratsubaAlg(const LongNum &fitstNum, const LongNum &secondNum);
     LongNum operator/(const LongNum &num);
     LongNum operator-();
@@ -110,7 +111,7 @@ bool LongNum::isOne() const
 
 bool LongNum::isZero() const
 {
-    if ((number.size() == 0) and (number[0] == 0))
+    if ((number.size() == 1) and (number[0] == 0))
     {
         return true;
     }
@@ -271,7 +272,14 @@ LongNum LongNum::operator-(const LongNum &num)
 
 LongNum LongNum::operator*(const LongNum &num)
 {
-    LongNum first = *this;
+    LongNum res(0);
+    res = KaratsubaAlg(*this, num);
+    return res;
+}
+
+LongNum LongNum::mult(const LongNum &firstNum, const LongNum &num)
+{
+    LongNum first = firstNum;
     LongNum second = num;
     first.sign = true;
     second.sign = true;
@@ -317,7 +325,13 @@ LongNum LongNum::KaratsubaAlg(const LongNum &firstNum, const LongNum &secondNum)
 {
     LongNum first = firstNum;
     LongNum second = secondNum;
-    LongNum result(0);
+    LongNum res(0);
+
+    if ((first.size() < 10) or (second.size() < 10))
+    {
+        res = mult(first, second);
+        return res;
+    }
 
     auto base = std::max(first.size(), second.size());
     auto halfbase = base / 2;
@@ -328,8 +342,10 @@ LongNum LongNum::KaratsubaAlg(const LongNum &firstNum, const LongNum &secondNum)
 
     LongNum AC = KaratsubaAlg(A, C);
     LongNum BD = KaratsubaAlg(B, D);
+    LongNum Plus = KaratsubaAlg(A + B, C + D) - AC - BD;
 
-    return result;
+    res = mult(AC, pow(LongNum(10), halfbase * 2)) + mult(Plus, pow(LongNum(10), halfbase)) + BD;
+    return res;
 }
 
 LongNum LongNum::operator/(const LongNum &num)
@@ -535,6 +551,11 @@ bool LongNum::operator<=(LongNum &second)
 
 LongNum LongNum::delete_lead_zeros(LongNum &num)
 {
+    if ((num.number[0] == 0) and (num.size() == 1))
+    {
+        return num;
+    }
+
     while (*num.number.rbegin() == 0)
     {
         num.number.pop_back();
