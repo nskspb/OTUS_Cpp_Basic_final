@@ -380,7 +380,13 @@ void Test::test_equal()
     LongNum a31(a3);
     LongNum b31(b3);
 
+    std::string a4("1231235451461615616454526354654365465436435635465346453");
+    std::string b4("1231235451461615616454526354654365465436435635465346453");
+    LongNum a41(a4);
+    LongNum b41(b4);
+
     verify("equal #1", a11 == b11, true);
     verify("equal #2", a21 != b21, true);
     verify("equal #3", a31 != b31, true);
+    verify("equal #4", a41 == b41, true);
 }
