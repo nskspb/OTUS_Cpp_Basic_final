@@ -19,9 +19,17 @@
 Например:
 
 ```
-std::string k("123611");
+std::string k("-123611");
 int s = 12345;
 
 LongNum k1(k);
 LongNum s1(s);
 ```
+Реализован оператор вывода для LongNum:
+
+```
+std::cout << pow(k1, r1) << std::endl;
+```
+
+## Реализованные методы
+
