@@ -14,5 +14,6 @@ int main()
     std::cout << k1 * r1 << std::endl;
     std::cout << k1 / r1 << std::endl;
     std::cout << pow(k1, r1) << std::endl;
+
     return 0;
 }
