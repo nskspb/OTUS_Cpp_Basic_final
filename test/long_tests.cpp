@@ -1,8 +1,6 @@
 #include <iostream>
 #include "../LongArithmetic.h"
 
-#include <gtest/gtest.h>
-
 class Test
 {
 private:
