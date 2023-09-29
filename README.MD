@@ -11,3 +11,17 @@
 ```
 #include "LongArithmetic.h"
 ```
+
+## Использование
+
+Создать экземпляр класса LongNum из строки std::string, вектора или целочисленного значения
+
+Например:
+
+```
+std::string k("123611");
+int s = 12345;
+
+LongNum k1(k);
+LongNum s1(s);
+```
