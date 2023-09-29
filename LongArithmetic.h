@@ -41,6 +41,7 @@ public:
     friend LongNum pow(const LongNum &firstNum, const LongNum &secondNum);
 
     bool operator==(LongNum &second);
+    bool operator!=(LongNum &second);
     bool operator>(LongNum &second);
     bool operator>=(LongNum &second);
     bool operator<(LongNum &second);
@@ -511,6 +512,13 @@ bool LongNum::operator==(LongNum &second)
             return false;
     }
     return true;
+}
+
+bool LongNum::operator!=(LongNum &second)
+{
+    LongNum first = *this;
+
+    return !(first == second);
 }
 
 bool LongNum::operator>(LongNum &second)

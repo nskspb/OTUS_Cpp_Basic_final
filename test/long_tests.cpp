@@ -20,6 +20,7 @@ public:
     static void test_constructor();                                     // Test for constructor
     static void test_pow();                                             // Test for pow(x;y)
     static void test_KaratsubaAlg();                                    // Test for Karatsuba mul algorithm
+    static void test_equal();                                           // Test for equal and !equal
 };
 
 int Test::totalTestNum = 0;  // Total number of tests
@@ -53,6 +54,7 @@ void Test::runAllTests()
     test_constructor();
     test_pow();
     test_KaratsubaAlg();
+    test_equal();
 }
 
 // Print out test report
@@ -359,4 +361,26 @@ void Test::test_KaratsubaAlg()
     verify("KaratsubaAlg #3", KaratsubaAlg(LongNum(a3), LongNum(b3)), LongNum(result3));
     verify("KaratsubaAlg #4", KaratsubaAlg(LongNum(a4), LongNum(b4)), LongNum(result4));
     verify("KaratsubaAlg #5", KaratsubaAlg(LongNum(a5), LongNum(b5)), LongNum(result5));
+}
+
+void Test::test_equal()
+{
+    std::string a1("1");
+    std::string b1("1");
+    LongNum a11(a1);
+    LongNum b11(b1);
+
+    std::string a2("1");
+    std::string b2("3");
+    LongNum a21(a2);
+    LongNum b21(b2);
+
+    std::string a3("1");
+    std::string b3("-1");
+    LongNum a31(a3);
+    LongNum b31(b3);
+
+    verify("equal #1", a11 == b11, true);
+    verify("equal #2", a21 != b21, true);
+    verify("equal #3", a31 != b31, true);
 }
